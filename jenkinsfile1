@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Add steps to build'
+            }
+        }
+        stage('Performance Test') {
+            steps {
+                echo 'Execution of performance test'
+				blazeMeterTest credentialsId: 'BlazeMeterCreds', getJtl: true, getJunit: true, testId: '12183665.taurus', workspaceId: '435929'
+            }
+        }
+    }
+}
