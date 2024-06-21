@@ -37,7 +37,7 @@ pipeline {
                     echo "Workspace path: ${env.WORKSPACE}"
 
                     //withCredentials([usernameColonPassword(credentialsId: 'bz-perf-pipeline', variable: 'CREDENTIAL')]) {
-						sh(bzt -o scenarios.j5s.properties.taurusfile="${taurusfile}" -o modules.cloud.token=-o scenarios.j5s.properties.keyid="${keyid}":-o scenarios.j5s.properties.keysecret="${keysecret}")
+						sh(bzt "${taurusfile}" -o modules.cloud.token="${keyid}":"${keysecret}")
                     }
                 }
             }
