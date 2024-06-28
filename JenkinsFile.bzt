@@ -39,7 +39,7 @@ pipeline {
                 container('blazemeter') {
                     echo "Running jmeter tests..."
             	dir ("${directory}") {
-                	bat 'bzt '+ TaurusFile + ' -o modules.cloud.token='+ KeyID +':'+ KeySecrete +''
+                	bat 'bzt '+ param.TaurusFile + ' -o modules.cloud.token='+ param.KeyID +':'+ param.KeySecrete +''
             			}
        			 }
                 }
