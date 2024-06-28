@@ -31,11 +31,7 @@ pipeline {
         stage("Run Performance Test") {
             steps {
                     dir ("${params.directory}") {
-                    sh """
-                        ls
-                        cd ${params.directory}/
                          'bzt '+ params.TaurusFile + ' -o modules.cloud.token='+ params.KeyID +':'+ params.KeySecrete +''
-                        """
                      }
                 }
             }
