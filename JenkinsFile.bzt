@@ -31,11 +31,8 @@ pipeline {
     stages {
         stage("Run Performance Test") {
             steps {
-                    dir("JenkinsPipelineDemo"){
+                    dir("${params.directory}"){
                     git url: "${params.github_repo}", credentialsId: 'MyGITHub'
-                    }
-                     {
-                        dir("${params.directory}"){
                         echo "Running blazemeter test..."
                         sh """
                         ls
@@ -45,7 +42,6 @@ pipeline {
                             bat 'bzt '+ params.taurusfile + ' -o modules.cloud.token='+ params.keyid +':'+ params.keySecrete +''
                         """
                         }
-                    }
                 }
             }
         }
