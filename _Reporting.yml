@@ -1,0 +1,3 @@
+reporting:
+  - module: final-stats
+  - module: console

@@ -1,0 +1,32 @@
+#---------------------------------------------------------------------------
+# CONFIGURATION JMX
+#---------------------------------------------------------------------------
+included-configs:
+  - _BlazeMeterCloud.yml
+  - _Reporting.yml
+  - _Settings.yml
+
+execution:
+    concurrency: 3
+    hold-for: 1m
+    ramp-up: 1m
+    scenario: Test
+    locations:
+      harbor-5f33acd1410d9a519369852c: 1 # SV2 Load Injector (only applies if using BlazeMeter)
+    files:
+      - Users.csv
+      - certs.csv
+
+scenarios:
+  Test:
+    script: CertMgmt_PT_2021_v0.4.jmx
+            
+modules:
+  cloud:
+    project: 2262477                  # name of project
+    test: Cert_Mgmt_Taurus          # Name of test
+  jmeter:
+    properties:
+      Host: us2b.app-np2.anaplan-np.net
+      password: Welcome1
+      

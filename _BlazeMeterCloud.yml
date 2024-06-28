@@ -1,0 +1,12 @@
+provisioning: cloud
+
+modules:
+  cloud:
+    account: 134511                      # Anaplan
+    workspace: 1506261                   # Throughput Workspace id
+    browser-open: none
+    detach: false
+    
+    
+    
+    
