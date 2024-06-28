@@ -35,6 +35,7 @@ pipeline {
                     git url: "${params.github_repo}", credentialsId: 'MyGITHub'
                     }
                      BlazeMeterTest: {
+                        dir("${params.directory}"){
                         echo "Running blazemeter test..."
                         sh """
                         ls
@@ -43,6 +44,7 @@ pipeline {
                         ls
                             bat 'bzt '+ params.taurusfile + ' -o modules.cloud.token='+ params.keyid +':'+ params.keySecrete +''
                         """
+                        }
                     }
                 }
             }
