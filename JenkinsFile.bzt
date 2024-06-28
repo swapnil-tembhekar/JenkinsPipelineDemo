@@ -20,13 +20,7 @@ def podtest() {
     ])
 }
 pipeline {
-	agent {
-        // launch on a kubernetes agent with the default jnlp agent container.
-        kubernetes {
-            label agentLabel("unique-string")
-            yaml podtest()
-        }
-    }
+	agent any
 	parameters {
 	string(name: 'directory',  description: 'Directory of the service')
         string(name: 'TaurusFile',  description: 'Enter Taurus File To Be Executed')
