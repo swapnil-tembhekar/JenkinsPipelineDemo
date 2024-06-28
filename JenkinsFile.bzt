@@ -31,7 +31,6 @@ pipeline {
             steps {
                 container('blazemeter') {
                     echo "Running jmeter tests..."
-                    BlazeMeterTest: {
             	dir ("${directory}") {
                 	bat 'bzt '+ TaurusFile + ' -o modules.cloud.token='+ KeyID +':'+ KeySecrete +''
             			}
@@ -40,5 +39,3 @@ pipeline {
             }
         }
     }
-
-}
