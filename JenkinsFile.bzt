@@ -1,13 +1,9 @@
 #! /usr/bin/groovy
 
-import com.anaplan.buildtools.jenkins_pipelines.ContainerTemplates
-
-@Library(['Anaplan_Pipeline'])
-
 def containerBlazemeter() {
     return [
         name: 'blazemeter',
-        image: "blazemeter/taurus:latest",
+        image: "blazemeter/taurus:1.15.3",
         command: ['cat'],
         resources: [limits: [memory: '2Gi'], requests: [memory: '2Gi']],
         tty: true
@@ -25,20 +21,21 @@ def podtest() {
 }
 pipeline {
 	parameters {
-        string(name: 'taurusfile',  description: 'taurus file to run')
-        string(name: 'keyid',  description: 'Key Id from blazemeter')
-        string(name: 'keysecret', description: 'Key Secret from Blazemeter')
+	string(name: 'directory',  description: 'Directory of the service')
+        string(name: 'TaurusFile',  description: 'Enter Taurus File To Be Executed')
+        string(name: 'KeyID',  description: 'Enter your Key From Blazemeter')
+        string(name: 'KeySecrete', description: 'Enter Key Secrete From BlazeMeterr')
                 }
     stages {
-          stage('Send results to splunk') {
+          stage('Run Performance Test') {
             steps {
                 container('blazemeter') {
                     echo "Running jmeter tests..."
-                    // echo "Workspace path: ${env.WORKSPACE}"
-
-                    //withCredentials([usernameColonPassword(credentialsId: 'bz-perf-pipeline', variable: 'CREDENTIAL')]) {
-						sh('bzt Cert_mgmt_Taurus.yml -o modules.cloud.token=e8e26e64ed2d867497d63eaf:5e04780fb7a9256d3f8d0b7aa4d1b1887ce2263b5ed350f078ea102ccdd8277704b2b501')
-                    }
+                    BlazeMeterTest: {
+            	dir ("${directory}") {
+                	bat 'bzt '+ TaurusFile + ' -o modules.cloud.token='+ KeyID +':'+ KeySecrete +''
+            			}
+       			 }
                 }
             }
         }
