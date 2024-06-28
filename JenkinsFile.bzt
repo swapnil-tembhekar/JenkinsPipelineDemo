@@ -37,7 +37,7 @@ pipeline {
                     echo "Workspace path: ${env.WORKSPACE}"
 
                     //withCredentials([usernameColonPassword(credentialsId: 'bz-perf-pipeline', variable: 'CREDENTIAL')]) {
-						sh(bzt Cert_mgmt_Taurus.yml -o modules.cloud.token=e8e26e64ed2d867497d63eaf:5e04780fb7a9256d3f8d0b7aa4d1b1887ce2263b5ed350f078ea102ccdd8277704b2b501)
+						sh('bzt Cert_mgmt_Taurus.yml -o modules.cloud.token=e8e26e64ed2d867497d63eaf:5e04780fb7a9256d3f8d0b7aa4d1b1887ce2263b5ed350f078ea102ccdd8277704b2b501')
                     }
                 }
             }
