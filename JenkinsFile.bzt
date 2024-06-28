@@ -21,7 +21,8 @@ def podtest() {
 
 pipeline {
         parameters {
-        string(name: 'directory',  description: 'directory of service')
+        string(name: 'github_repo',  description: 'eg: https://github.anaplan.com/qa/cloudworks_perf.git')
+        string(name: 'directory',  description: 'directory within the repo containing the tests')
         string(name: 'TaurusFile',  description: 'taurus file to run')
         string(name: 'KeyID',  description: 'Key Id from blazemeter')
         string(name: 'KeySecrete', description: 'Key Secret from Blazemeter')
@@ -30,11 +31,17 @@ pipeline {
     stages {
         stage("Run Performance Test") {
             steps {
-                    dir ("${params.directory}") {
-                        sh """
-                         'bzt '+ params.TaurusFile + ' -o modules.cloud.token='+ params.KeyID +':'+ params.KeySecrete +''
+                    dir("JenkinsPipelineDemo"){
+                    git url: "${params.github_repo}", credentialsId: 'MyGITHub'
+                    echo "Running blazemeter test..."
+                    sh """
+                        ls
+                        cd ${params.directory}/
+                        pwd
+                        ls
+                            bat 'bzt '+ params.taurusfile + ' -o modules.cloud.token='+ params.keyid +':'+ params.keySecrete +''
                         """
-                     }
+                    }
                 }
             }
         }
