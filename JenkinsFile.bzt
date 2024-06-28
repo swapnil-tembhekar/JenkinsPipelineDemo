@@ -30,8 +30,8 @@ pipeline {
     stages {
         stage("Run Performance Test") {
             steps {
-                    dir ("${directory}") {
-                    bat 'bzt '+ param.TaurusFile + ' -o modules.cloud.token='+ param.KeyID +':'+ param.KeySecrete +''
+                    dir ("${params.directory}") {
+                    bat 'bzt '+ params.TaurusFile + ' -o modules.cloud.token='+ params.KeyID +':'+ params.KeySecrete +''
                      }
                 }
             }
