@@ -34,7 +34,7 @@ pipeline {
                     dir("JenkinsPipelineDemo"){
                     git url: "${params.github_repo}", credentialsId: 'MyGITHub'
                     }
-                     BlazeMeterTest: {
+                     {
                         dir("${params.directory}"){
                         echo "Running blazemeter test..."
                         sh """
