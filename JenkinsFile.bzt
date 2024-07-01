@@ -32,7 +32,7 @@ pipeline {
         stage("Run Performance Test") {
             steps {
                     dir("${params.directory}"){
-                    git url: "${params.github_repo}", credentialsId: 'MyGITHub'
+                    git branch: 'main', url: "${params.github_repo}", credentialsId: 'MyGITHub'
                         echo "Running blazemeter test..."
                         sh """
                         ls
