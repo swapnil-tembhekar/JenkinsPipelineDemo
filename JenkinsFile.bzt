@@ -23,26 +23,22 @@ pipeline {
         parameters {
         string(name: 'github_repo',  description: 'eg: https://github.anaplan.com/qa/cloudworks_perf.git')
         string(name: 'directory',  description: 'directory within the repo containing the tests')
+        string(name: 'path',  description: 'path within the repo containing the tests')
         string(name: 'TaurusFile',  description: 'taurus file to run')
         string(name: 'KeyID',  description: 'Key Id from blazemeter')
         string(name: 'KeySecrete', description: 'Key Secret from Blazemeter')
         }
     agent any
     stages {
-        stage("Run Performance Test") {
+          stage('Execute Test on Blazemeter') {
             steps {
-                    dir("${params.directory}"){
-                    git branch: 'main', url: "${params.github_repo}", credentialsId: 'MyGITHub'
+                dir("${params.directory}"){
+                    git branch: 'develop', url: "${params.github_repo}", credentialsId: 'jenkins_git'
                         echo "Running blazemeter test..."
-                        sh """
-                        ls
-                        cd ${params.directory}/
-                        pwd
-                        ls
-                            bat 'bzt '+ params.taurusfile + ' -o modules.cloud.token='+ params.keyid +':'+ params.keySecrete +''
-                        """
+                        echo "${params.directory}"
+                                    sh('bzt '+ params.path+ '/' + params.taurusfile + ' -o modules.cloud.token=' + params.keyid + ':' + params.keySecrete + '')
+                                }
                         }
                 }
             }
         }
-    }
